@@ -120,7 +120,7 @@
             margin: 25px 0;
         }
 
-        input[type="text"] {
+        input[type="text"], textarea {
             width: 100%;
             padding: 15px;
             font-size: 1.1em;
@@ -131,15 +131,21 @@
             color: #E0E0E0;
             transition: all 0.3s ease;
             outline: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        input[type="text]:focus {
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus, textarea:focus {
             border-color: #00d4aa;
             box-shadow: 0 0 15px rgba(0, 212, 170, 0.4);
             transform: scale(1.02);
         }
 
-        input[type="text"]::placeholder {
+        input[type="text"]::placeholder, textarea::placeholder {
             color: #708090;
         }
 
@@ -171,6 +177,11 @@
         .btn-submit.final {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             color: #0A1931;
+        }
+
+        .btn-admin {
+            background: linear-gradient(135deg, #6a5acd, #8470ff);
+            margin-top: 10px;
         }
 
         .feedback {
@@ -219,22 +230,87 @@
             75% { transform: translateX(10px); }
         }
 
-        .confetti {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
         .note {
             text-align: center;
             color: #708090;
             font-size: 0.9em;
             margin-top: 20px;
             font-style: italic;
+        }
+
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(106, 90, 205, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .admin-link:hover {
+            background: rgba(132, 112, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .answer-item {
+            background: #052A50;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #009B77;
+        }
+
+        .answer-item h3 {
+            color: #90EE90;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .answer-item p {
+            color: #E0E0E0;
+            margin: 5px 0;
+        }
+
+        .answer-item .timestamp {
+            color: #708090;
+            font-size: 0.85em;
+        }
+
+        .message-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+
+        .message-box p {
+            color: #FFD700;
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.6;
         }
 
         @media (max-width: 600px) {
@@ -247,38 +323,72 @@
             .question {
                 font-size: 1em;
             }
+            .admin-link {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1 id="mainTitle">🎄 Secret Santa Treasure Hunt 🎄</h1>
-            <div class="subtitle" id="subtitle">Recipient: Mr. Kamendra</div>
+        <!-- User View -->
+        <div id="userView">
+            <div class="header">
+                <h1 id="mainTitle">🎄 Secret Santa Treasure Hunt 🎄</h1>
+                <div class="subtitle" id="subtitle">Recipient: Mr. Kamendra</div>
+            </div>
+
+            <!-- Message from Secret Santa -->
+            <div id="messageContainer"></div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Day 1 of 13</div>
+
+            <div class="question-box">
+                <div class="assignment-label">✨ ASSIGNMENT ✨</div>
+                <div class="question" id="question"></div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="answerInput" placeholder="Enter your answer here...">
+            </div>
+
+            <button class="btn-submit" id="submitBtn">SUBMIT ANSWER</button>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="note">
+                💾 Your progress is automatically saved
+            </div>
         </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">Day 1 of 13</div>
+        <!-- Admin Panel -->
+        <div id="adminView" class="admin-panel">
+            <div class="header">
+                <h1>🔐 Secret Santa Control Panel</h1>
+                <div class="subtitle">Monitor Kamendra's Progress</div>
+            </div>
 
-        <div class="question-box">
-            <div class="assignment-label">✨ ASSIGNMENT ✨</div>
-            <div class="question" id="question"></div>
-        </div>
+            <button class="btn-submit" onclick="exportAnswers()">📥 DOWNLOAD ALL ANSWERS</button>
+            <button class="btn-submit" onclick="switchToUser()" style="margin-top: 10px;">👤 BACK TO USER VIEW</button>
 
-        <div class="input-group">
-            <input type="text" id="answerInput" placeholder="Enter your answer here...">
-        </div>
+            <div style="margin: 30px 0;">
+                <h2 style="color: #009B77; margin-bottom: 15px;">📨 Send Message to Kamendra</h2>
+                <textarea id="adminMessage" placeholder="Type your encouraging message here..."></textarea>
+                <button class="btn-submit" onclick="sendMessage()" style="margin-top: 10px;">SEND MESSAGE</button>
+            </div>
 
-        <button class="btn-submit" id="submitBtn">SUBMIT ANSWER</button>
-
-        <div class="feedback" id="feedback"></div>
-
-        <div class="note">
-            💾 Your progress is automatically saved
+            <h2 style="color: #009B77; margin: 30px 0 15px 0;">📊 Kamendra's Answers:</h2>
+            <div id="answersDisplay"></div>
         </div>
     </div>
+
+    <a href="#" class="admin-link" onclick="toggleAdmin(); return false;">🔐 Secret Santa Panel</a>
 
     <script>
         const tasks = [
@@ -390,7 +500,7 @@
 
         let currentTaskIndex = 0;
 
-        // Load progress from localStorage
+        // Load progress
         function loadProgress() {
             const saved = localStorage.getItem('treasureHuntProgress');
             if (saved) {
@@ -398,9 +508,24 @@
             }
         }
 
-        // Save progress to localStorage
+        // Save progress
         function saveProgress() {
             localStorage.setItem('treasureHuntProgress', currentTaskIndex.toString());
+        }
+
+        // Display message if exists
+        function displayMessage() {
+            const message = localStorage.getItem('secretSantaMessage');
+            const container = document.getElementById('messageContainer');
+            
+            if (message) {
+                container.innerHTML = `
+                    <div class="message-box">
+                        <p><strong>💌 Message from your Secret Santa:</strong></p>
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
         }
 
         // Display current task
@@ -412,20 +537,20 @@
             document.getElementById('feedback').textContent = '';
             document.getElementById('feedback').className = 'feedback';
             
-            // Update progress bar
             const progress = ((currentTaskIndex) / tasks.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
             document.getElementById('progressText').textContent = `Day ${task.day} of ${tasks.length}`;
 
-            // Change button for final task
             if (currentTaskIndex === tasks.length - 1) {
                 document.getElementById('mainTitle').textContent = '🎉 FINAL CHALLENGE 🎉';
                 document.getElementById('submitBtn').textContent = 'REVEAL THE TREASURE';
                 document.getElementById('submitBtn').classList.add('final');
             }
+
+            displayMessage();
         }
 
-        // Check answer with fuzzy matching
+        // Check answer
         function checkAnswer() {
             const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
             const task = tasks[currentTaskIndex];
@@ -437,17 +562,19 @@
                 return;
             }
 
-            // Save answer
-            localStorage.setItem(`task_${task.id}`, userAnswer);
+            // Save answer with timestamp
+            const answerData = {
+                answer: userAnswer,
+                timestamp: new Date().toLocaleString()
+            };
+            localStorage.setItem(`task_${task.id}`, JSON.stringify(answerData));
 
-            // Check if answer matches any acceptable answer
             const isCorrect = task.answers.some(answer => 
                 userAnswer.includes(answer) || answer.includes(userAnswer)
             );
 
             if (isCorrect) {
                 if (currentTaskIndex === tasks.length - 1) {
-                    // Final task
                     feedback.textContent = '🏆 TREASURE UNLOCKED! Go get your Performance Bonus! 🎁';
                     feedback.className = 'feedback final-success';
                     createConfetti();
@@ -471,7 +598,7 @@
             }
         }
 
-        // Create confetti effect
+        // Create confetti
         function createConfetti() {
             const colors = ['#FFD700', '#FFA500', '#009B77', '#00d4aa', '#90EE90'];
             const confettiCount = 50;
@@ -499,6 +626,123 @@
                     easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 }).onfinish = () => confetti.remove();
             }
+        }
+
+        // Toggle admin panel
+        function toggleAdmin() {
+            const userView = document.getElementById('userView');
+            const adminView = document.getElementById('adminView');
+            
+            if (adminView.classList.contains('active')) {
+                adminView.classList.remove('active');
+                userView.style.display = 'block';
+            } else {
+                adminView.classList.add('active');
+                userView.style.display = 'none';
+                displayAllAnswers();
+            }
+        }
+
+        // Switch to user view
+        function switchToUser() {
+            document.getElementById('adminView').classList.remove('active');
+            document.getElementById('userView').style.display = 'block';
+        }
+
+        // Display all answers in admin panel
+        function displayAllAnswers() {
+            const container = document.getElementById('answersDisplay');
+            let html = '';
+
+            tasks.forEach(task => {
+                const savedData = localStorage.getItem(`task_${task.id}`);
+                
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        html += `
+                            <div class="answer-item">
+                                <h3>Day ${task.day}: ${task.title}</h3>
+                                <p><strong>Question:</strong> ${task.question.split('\n')[0]}</p>
+                                <p><strong>Answer:</strong> ${data.answer}</p>
+                                <p class="timestamp">⏰ ${data.timestamp}</p>
+                            </div>
+                        `;
+                    } catch (e) {
+                        // Old format without timestamp
+                        html += `
+                            <div class="answer-item">
+                                <h3>Day ${task.day}: ${task.title}</h3>
+                                <p><strong>Answer:</strong> ${savedData}</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    html += `
+                        <div class="answer-item" style="opacity: 0.5;">
+                            <h3>Day ${task.day}: ${task.title}</h3>
+                            <p style="color: #708090;">Not answered yet</p>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Send message to Kamendra
+        function sendMessage() {
+            const message = document.getElementById('adminMessage').value.trim();
+            
+            if (!message) {
+                alert('Please type a message first!');
+                return;
+            }
+
+            localStorage.setItem('secretSantaMessage', message);
+            alert('✅ Message sent! Kamendra will see it when he opens the page.');
+            document.getElementById('adminMessage').value = '';
+        }
+
+        // Export all answers
+        function exportAnswers() {
+            let report = '🎄 SECRET SANTA TREASURE HUNT - ANSWERS REPORT 🎄\n';
+            report += '=' .repeat(60) + '\n\n';
+            report += `Participant: Mr. Kamendra\n`;
+            report += `Generated: ${new Date().toLocaleString()}\n\n`;
+            report += '=' .repeat(60) + '\n\n';
+
+            tasks.forEach(task => {
+                const savedData = localStorage.getItem(`task_${task.id}`);
+                report += `Day ${task.day}: ${task.title}\n`;
+                report += `Date: ${task.date}\n`;
+                report += `Question: ${task.question.split('\n')[0]}\n`;
+                
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        report += `Answer: ${data.answer}\n`;
+                        report += `Timestamp: ${data.timestamp}\n`;
+                    } catch (e) {
+                        report += `Answer: ${savedData}\n`;
+                    }
+                } else {
+                    report += `Answer: (Not answered yet)\n`;
+                }
+                
+                report += '\n' + '-'.repeat(60) + '\n\n';
+            });
+
+            // Create download
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Kamendra_Answers_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
         }
 
         // Event listeners
