@@ -388,6 +388,10 @@
     <a href="#" class="admin-link" onclick="toggleAdmin(); return false;">🔐 Secret Santa Panel</a>
 
     <script>
+        // --- Configuration ---
+        const ADMIN_PASSWORD = '0772989780'; // The requested password
+        // ---------------------
+        
         const tasks = [
             {
                 id: 'dec3',
@@ -496,7 +500,6 @@
         ];
 
         let currentTaskIndex = 0;
-        const ADMIN_PIN = '2989780'; // <-- DEFINES THE SECRET PIN
 
         // Load progress
         function loadProgress() {
@@ -543,6 +546,10 @@
                 document.getElementById('mainTitle').textContent = '🎉 FINAL CHALLENGE 🎉';
                 document.getElementById('submitBtn').textContent = 'REVEAL THE TREASURE';
                 document.getElementById('submitBtn').classList.add('final');
+            } else {
+                document.getElementById('mainTitle').textContent = '🎄 Secret Santa Treasure Hunt 🎄';
+                document.getElementById('submitBtn').textContent = 'SUBMIT ANSWER';
+                document.getElementById('submitBtn').classList.remove('final');
             }
 
             displayMessage();
@@ -567,8 +574,10 @@
             };
             localStorage.setItem(`task_${task.id}`, JSON.stringify(answerData));
 
+            // Simplified check: check if any correct answer is included in the user's answer,
+            // or if the user's answer is included in any correct answer.
             const isCorrect = task.answers.some(answer => 
-                userAnswer.includes(answer) || answer.includes(userAnswer)
+                userAnswer.includes(answer.toLowerCase()) || answer.toLowerCase().includes(userAnswer)
             );
 
             if (isCorrect) {
@@ -626,26 +635,27 @@
             }
         }
 
-        // Toggle admin panel - MODIFIED TO INCLUDE PIN CHECK
+        // Toggle admin panel (with password protection)
         function toggleAdmin() {
             const userView = document.getElementById('userView');
             const adminView = document.getElementById('adminView');
             
             if (adminView.classList.contains('active')) {
+                // If currently active, switch back to user view
                 adminView.classList.remove('active');
                 userView.style.display = 'block';
             } else {
-                // Prompt for the PIN
-                const enteredPin = prompt("🔑 Enter the Secret Santa Control Panel PIN:");
-
-                if (enteredPin === ADMIN_PIN) {
-                    // Correct PIN
+                // Prompt for password
+                const password = prompt("Enter Secret Santa Password to access the Control Panel:");
+                
+                if (password === ADMIN_PASSWORD) {
+                    // Correct password
                     adminView.classList.add('active');
                     userView.style.display = 'none';
                     displayAllAnswers();
-                } else if (enteredPin !== null) {
-                    // Incorrect PIN (enteredPin is null if the user clicked cancel)
-                    alert("❌ Incorrect PIN. Access Denied.");
+                } else if (password !== null) {
+                    // Incorrect password (and not cancelled)
+                    alert('Access Denied: Incorrect Password.');
                 }
             }
         }
@@ -709,6 +719,7 @@
             localStorage.setItem('secretSantaMessage', message);
             alert('✅ Message sent! Kamendra will see it when he opens the page.');
             document.getElementById('adminMessage').value = '';
+            displayMessage(); // Refresh user view message immediately if still on admin view
         }
 
         // Export all answers
