@@ -1,759 +1,766 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Santa Treasure Hunt - Mr. Kamendra</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Santa Treasure Hunt - Mr. Kamendra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        body {
-            background: linear-gradient(135deg, #0A1931 0%, #1a3a52 100%);
-            color: #E0E0E0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        body {
+            background: linear-gradient(135deg, #0A1931 0%, #1a3a52 100%);
+            color: #E0E0E0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-        .container {
-            background: linear-gradient(145deg, #1F2D4A 0%, #2a3f5f 100%);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 650px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 155, 119, 0.4),
-                        0 0 40px rgba(0, 155, 119, 0.2);
-            animation: slideIn 0.6s ease-out;
-        }
+        .container {
+            background: linear-gradient(145deg, #1F2D4A 0%, #2a3f5f 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 155, 119, 0.4),
+                        0 0 40px rgba(0, 155, 119, 0.2);
+            animation: slideIn 0.6s ease-out;
+        }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-        h1 {
-            color: #009B77;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(0, 155, 119, 0.5);
-        }
+        h1 {
+            color: #009B77;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 155, 119, 0.5);
+        }
 
-        .subtitle {
-            color: #90EE90;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
+        .subtitle {
+            color: #90EE90;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
 
-        .progress-bar {
-            background: #052A50;
-            height: 8px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
+        .progress-bar {
+            background: #052A50;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
 
-        .progress-fill {
-            background: linear-gradient(90deg, #009B77, #00d4aa);
-            height: 100%;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 10px rgba(0, 155, 119, 0.8);
-        }
+        .progress-fill {
+            background: linear-gradient(90deg, #009B77, #00d4aa);
+            height: 100%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(0, 155, 119, 0.8);
+        }
 
-        .progress-text {
-            text-align: center;
-            color: #708090;
-            font-size: 0.9em;
-            margin-top: 8px;
-        }
+        .progress-text {
+            text-align: center;
+            color: #708090;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
 
-        .question-box {
-            background: #052A50;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border: 2px solid #009B77;
-            box-shadow: 0 0 20px rgba(0, 155, 119, 0.3);
-            animation: fadeIn 0.5s ease;
-        }
+        .question-box {
+            background: #052A50;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #009B77;
+            box-shadow: 0 0 20px rgba(0, 155, 119, 0.3);
+            animation: fadeIn 0.5s ease;
+        }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        .assignment-label {
-            font-size: 1.3em;
-            color: #90EE90;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
+        .assignment-label {
+            font-size: 1.3em;
+            color: #90EE90;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
 
-        .question {
-            font-size: 1.15em;
-            line-height: 1.8;
-            color: #E0E0E0;
-            text-align: center;
-            white-space: pre-line;
-        }
+        .question {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: #E0E0E0;
+            text-align: center;
+            white-space: pre-line;
+        }
 
-        .input-group {
-            margin: 25px 0;
-        }
+        .input-group {
+            margin: 25px 0;
+        }
 
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-            text-align: center;
-            background: #0A1931;
-            border: 2px solid #009B77;
-            border-radius: 10px;
-            color: #E0E0E0;
-            transition: all 0.3s ease;
-            outline: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            background: #0A1931;
+            border: 2px solid #009B77;
+            border-radius: 10px;
+            color: #E0E0E0;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
 
-        input[type="text"]:focus, textarea:focus {
-            border-color: #00d4aa;
-            box-shadow: 0 0 15px rgba(0, 212, 170, 0.4);
-            transform: scale(1.02);
-        }
+        input[type="text"]:focus, textarea:focus {
+            border-color: #00d4aa;
+            box-shadow: 0 0 15px rgba(0, 212, 170, 0.4);
+            transform: scale(1.02);
+        }
 
-        input[type="text"]::placeholder, textarea::placeholder {
-            color: #708090;
-        }
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #708090;
+        }
 
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2em;
-            font-weight: bold;
-            background: linear-gradient(135deg, #009B77, #00d4aa);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 20px rgba(0, 155, 119, 0.4);
-        }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #009B77, #00d4aa);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(0, 155, 119, 0.4);
+        }
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 155, 119, 0.6);
-        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 155, 119, 0.6);
+        }
 
-        .btn-submit:active {
-            transform: translateY(0);
-        }
+        .btn-submit:active {
+            transform: translateY(0);
+        }
 
-        .btn-submit.final {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #0A1931;
-        }
+        .btn-submit.final {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #0A1931;
+        }
 
-        .btn-admin {
-            background: linear-gradient(135deg, #6a5acd, #8470ff);
-            margin-top: 10px;
-        }
+        .btn-admin {
+            background: linear-gradient(135deg, #6a5acd, #8470ff);
+            margin-top: 10px;
+        }
 
-        .feedback {
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-top: 20px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
+        .feedback {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 20px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
 
-        .feedback.success {
-            background: rgba(0, 155, 119, 0.2);
-            color: #00d4aa;
-            border: 2px solid #009B77;
-            animation: successPulse 0.6s ease;
-        }
+        .feedback.success {
+            background: rgba(0, 155, 119, 0.2);
+            color: #00d4aa;
+            border: 2px solid #009B77;
+            animation: successPulse 0.6s ease;
+        }
 
-        .feedback.error {
-            background: rgba(255, 99, 71, 0.2);
-            color: #FF6347;
-            border: 2px solid #FF6347;
-            animation: shake 0.5s ease;
-        }
+        .feedback.error {
+            background: rgba(255, 99, 71, 0.2);
+            color: #FF6347;
+            border: 2px solid #FF6347;
+            animation: shake 0.5s ease;
+        }
 
-        .feedback.final-success {
-            background: rgba(255, 215, 0, 0.2);
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            animation: successPulse 0.6s ease;
-        }
+        .feedback.final-success {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            animation: successPulse 0.6s ease;
+        }
 
-        @keyframes successPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
 
-        .note {
-            text-align: center;
-            color: #708090;
-            font-size: 0.9em;
-            margin-top: 20px;
-            font-style: italic;
-        }
+        .note {
+            text-align: center;
+            color: #708090;
+            font-size: 0.9em;
+            margin-top: 20px;
+            font-style: italic;
+        }
 
-        .admin-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(106, 90, 205, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.9em;
-            box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4);
-            transition: all 0.3s ease;
-        }
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(106, 90, 205, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4);
+            transition: all 0.3s ease;
+        }
 
-        .admin-link:hover {
-            background: rgba(132, 112, 255, 0.9);
-            transform: translateY(-2px);
-        }
+        .admin-link:hover {
+            background: rgba(132, 112, 255, 0.9);
+            transform: translateY(-2px);
+        }
 
-        /* Admin Panel Styles */
-        .admin-panel {
-            display: none;
-            max-height: 600px;
-            overflow-y: auto;
-        }
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            max-height: 600px;
+            overflow-y: auto;
+        }
 
-        .admin-panel.active {
-            display: block;
-        }
+        .admin-panel.active {
+            display: block;
+        }
 
-        .answer-item {
-            background: #052A50;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-left: 4px solid #009B77;
-        }
+        .answer-item {
+            background: #052A50;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #009B77;
+        }
 
-        .answer-item h3 {
-            color: #90EE90;
-            margin-bottom: 5px;
-            font-size: 1em;
-        }
+        .answer-item h3 {
+            color: #90EE90;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
 
-        .answer-item p {
-            color: #E0E0E0;
-            margin: 5px 0;
-        }
+        .answer-item p {
+            color: #E0E0E0;
+            margin: 5px 0;
+        }
 
-        .answer-item .timestamp {
-            color: #708090;
-            font-size: 0.85em;
-        }
+        .answer-item .timestamp {
+            color: #708090;
+            font-size: 0.85em;
+        }
 
-        .message-box {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid #FFD700;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            animation: pulse 2s infinite;
-        }
+        .message-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
 
-        .message-box p {
-            color: #FFD700;
-            text-align: center;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
+        .message-box p {
+            color: #FFD700;
+            text-align: center;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            .question {
-                font-size: 1em;
-            }
-            .admin-link {
-                bottom: 10px;
-                right: 10px;
-                padding: 8px 15px;
-                font-size: 0.8em;
-            }
-        }
-    </style>
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .question {
+                font-size: 1em;
+            }
+            .admin-link {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- User View -->
-        <div id="userView">
-            <div class="header">
-                <h1 id="mainTitle">🎄 Secret Santa Treasure Hunt 🎄</h1>
-                <div class="subtitle" id="subtitle">Recipient: Mr. Kamendra</div>
-            </div>
+    <div class="container">
+                <div id="userView">
+            <div class="header">
+                <h1 id="mainTitle">🎄 Secret Santa Treasure Hunt 🎄</h1>
+                <div class="subtitle" id="subtitle">Recipient: Mr. Kamendra</div>
+            </div>
 
-            <!-- Message from Secret Santa -->
-            <div id="messageContainer"></div>
+                        <div id="messageContainer"></div>
 
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text" id="progressText">Day 1 of 13</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Day 1 of 13</div>
 
-            <div class="question-box">
-                <div class="assignment-label">✨ ASSIGNMENT ✨</div>
-                <div class="question" id="question"></div>
-            </div>
+            <div class="question-box">
+                <div class="assignment-label">✨ ASSIGNMENT ✨</div>
+                <div class="question" id="question"></div>
+            </div>
 
-            <div class="input-group">
-                <input type="text" id="answerInput" placeholder="Enter your answer here...">
-            </div>
+            <div class="input-group">
+                <input type="text" id="answerInput" placeholder="Enter your answer here...">
+            </div>
 
-            <button class="btn-submit" id="submitBtn">SUBMIT ANSWER</button>
+            <button class="btn-submit" id="submitBtn">SUBMIT ANSWER</button>
 
-            <div class="feedback" id="feedback"></div>
+            <div class="feedback" id="feedback"></div>
 
-            <div class="note">
-                💾 Your progress is automatically saved
-            </div>
-        </div>
+            <div class="note">
+                💾 Your progress is automatically saved
+            </div>
+        </div>
 
-        <!-- Admin Panel -->
-        <div id="adminView" class="admin-panel">
-            <div class="header">
-                <h1>🔐 Secret Santa Control Panel</h1>
-                <div class="subtitle">Monitor Kamendra's Progress</div>
-            </div>
+                <div id="adminView" class="admin-panel">
+            <div class="header">
+                <h1>🔐 Secret Santa Control Panel</h1>
+                <div class="subtitle">Monitor Kamendra's Progress</div>
+            </div>
 
-            <button class="btn-submit" onclick="exportAnswers()">📥 DOWNLOAD ALL ANSWERS</button>
-            <button class="btn-submit" onclick="switchToUser()" style="margin-top: 10px;">👤 BACK TO USER VIEW</button>
+            <button class="btn-submit" onclick="exportAnswers()">📥 DOWNLOAD ALL ANSWERS</button>
+            <button class="btn-submit" onclick="switchToUser()" style="margin-top: 10px;">👤 BACK TO USER VIEW</button>
 
-            <div style="margin: 30px 0;">
-                <h2 style="color: #009B77; margin-bottom: 15px;">📨 Send Message to Kamendra</h2>
-                <textarea id="adminMessage" placeholder="Type your encouraging message here..."></textarea>
-                <button class="btn-submit" onclick="sendMessage()" style="margin-top: 10px;">SEND MESSAGE</button>
-            </div>
+            <div style="margin: 30px 0;">
+                <h2 style="color: #009B77; margin-bottom: 15px;">📨 Send Message to Kamendra</h2>
+                <textarea id="adminMessage" placeholder="Type your encouraging message here..."></textarea>
+                <button class="btn-submit" onclick="sendMessage()" style="margin-top: 10px;">SEND MESSAGE</button>
+            </div>
 
-            <h2 style="color: #009B77; margin: 30px 0 15px 0;">📊 Kamendra's Answers:</h2>
-            <div id="answersDisplay"></div>
-        </div>
-    </div>
+            <h2 style="color: #009B77; margin: 30px 0 15px 0;">📊 Kamendra's Answers:</h2>
+            <div id="answersDisplay"></div>
+        </div>
+    </div>
 
-    <a href="#" class="admin-link" onclick="toggleAdmin(); return false;">🔐 Secret Santa Panel</a>
+    <a href="#" class="admin-link" onclick="toggleAdmin(); return false;">🔐 Secret Santa Panel</a>
 
-    <script>
-        const tasks = [
-            {
-                id: 'dec3',
-                day: 1,
-                date: 'Dec 3',
-                title: 'The Morning Fuel',
-                question: "The single most important key performance indicator (KPI) that keeps you coming to the office every morning.\n\n(Hint: It's brewed.)",
-                answers: ['coffee', 'tea', 'caffeine', 'espresso', 'latte', 'cappuccino']
-            },
-            {
-                id: 'dec4',
-                day: 2,
-                date: 'Dec 4',
-                title: 'HR Compliance Check',
-                question: "The exact numerical page number in the Employee Handbook that addresses the official office policy on Secret Santa gift limits.",
-                answers: ['15', 'fifteen', 'page 15']
-            },
-            {
-                id: 'dec5',
-                day: 3,
-                date: 'Dec 5',
-                title: 'Talent Acquisition',
-                question: "The name of the one recruitment channel (platform) that consistently delivers the most interesting, unique applicants to our company.\n\n(e.g., LinkedIn, Referrals, Indeed)",
-                answers: ['referrals', 'referral', 'employee referrals', 'internal referrals']
-            },
-            {
-                id: 'dec8',
-                day: 4,
-                date: 'Dec 8',
-                title: 'Security Clearance',
-                question: "The four-digit number that you use to log into the main HR file server where nobody ever bothers you.",
-                answers: ['1234', '1111', '2024', '0000', '9999']
-            },
-            {
-                id: 'dec9',
-                day: 5,
-                date: 'Dec 9',
-                title: 'Dream Location',
-                question: "Where would you *prefer* to conduct an employee exit interview?\n\nEnter either 'Conference Room' or 'Beach'",
-                answers: ['beach', 'the beach', 'conference room', 'conference']
-            },
-            {
-                id: 'dec10',
-                day: 6,
-                date: 'Dec 10',
-                title: 'Resource Management',
-                question: "The name of the person in the office who has, without fail, the best snacks at their desk.\n\n(First Name Only)",
-                answers: ['samantha', 'sam', 'sarah', 'jessica', 'emily']
-            },
-            {
-                id: 'dec11',
-                day: 7,
-                date: 'Dec 11',
-                title: 'Honest Feedback',
-                question: "The HR buzzword you secretly hate using the most during annual performance reviews.\n\n(e.g., 'Synergy,' 'Leverage,' 'Bandwidth')",
-                answers: ['synergy', 'leverage', 'bandwidth', 'alignment', 'optimize', 'streamline', 'paradigm']
-            },
-            {
-                id: 'dec12',
-                day: 8,
-                date: 'Dec 12',
-                title: 'Strategic Alignment',
-                question: "Complete the HR phrase:\n\n'We need to align the _____ with the company's strategic goals.'\n\n(The missing word)",
-                answers: ['talent', 'resources', 'team', 'workforce', 'people', 'employees', 'objectives']
-            },
-            {
-                id: 'dec15',
-                day: 9,
-                date: 'Dec 15',
-                title: 'Chief Happiness Officer',
-                question: "If you could hire a Chief Happiness Officer who was a non-human, which animal would it be?\n\n(e.g., Cat, Dog, Parrot)",
-                answers: ['dog', 'cat', 'puppy', 'golden retriever', 'labrador', 'kitten', 'parrot']
-            },
-            {
-                id: 'dec16',
-                day: 10,
-                date: 'Dec 16',
-                title: 'Employee Recognition',
-                question: "What form of Employee Recognition makes you smile the most?\n\n(e.g., Pizza Party, Public Shoutout, Bonus Check)",
-                answers: ['bonus check', 'bonus', 'cash bonus', 'money', 'salary increase', 'raise', 'gift card']
-            },
-            {
-                id: 'dec17',
-                day: 11,
-                date: 'Dec 17',
-                title: 'Onboarding Strategy',
-                question: "Your most successful onboarding strategy (one word that describes it).",
-                answers: ['mentorship', 'training', 'buddy system', 'welcoming', 'structured', 'comprehensive', 'support']
-            },
-            {
-                id: 'dec18',
-                day: 12,
-                date: 'Dec 18',
-                title: 'Secret Talent',
-                question: "Your 'Secret Talent' for calming down a difficult meeting.\n\n(Two words, e.g., 'Sharp Pencils')",
-                answers: ['quick jokes', 'humor', 'coffee break', 'deep breath', 'calm voice', 'listening skills']
-            },
-            {
-                id: 'dec19',
-                day: 13,
-                date: 'Dec 19',
-                title: 'FINAL - The Treasure Location',
-                question: "🎉 CONGRATULATIONS! 🎉\n\nYou have successfully completed your treasure hunt journey.\n\nYour final assignment is to look in the most organized place you know.\n\n(Enter the final location)",
-                answers: ['filing cabinet', 'file cabinet', 'desk drawer', 'drawer', 'office', 'storage']
-            }
-        ];
+    <script>
+        const tasks = [
+            {
+                id: 'dec3',
+                day: 1,
+                date: 'Dec 3',
+                title: 'The Morning Fuel',
+                question: "The single most important key performance indicator (KPI) that keeps you coming to the office every morning.\n\n(Hint: It's brewed.)",
+                answers: ['coffee', 'tea', 'caffeine', 'espresso', 'latte', 'cappuccino']
+            },
+            {
+                id: 'dec4',
+                day: 2,
+                date: 'Dec 4',
+                title: 'HR Compliance Check',
+                question: "The exact numerical page number in the Employee Handbook that addresses the official office policy on Secret Santa gift limits.",
+                answers: ['15', 'fifteen', 'page 15']
+            },
+            {
+                id: 'dec5',
+                day: 3,
+                date: 'Dec 5',
+                title: 'Talent Acquisition',
+                question: "The name of the one recruitment channel (platform) that consistently delivers the most interesting, unique applicants to our company.\n\n(e.g., LinkedIn, Referrals, Indeed)",
+                answers: ['referrals', 'referral', 'employee referrals', 'internal referrals']
+            },
+            {
+                id: 'dec8',
+                day: 4,
+                date: 'Dec 8',
+                title: 'Security Clearance',
+                question: "The four-digit number that you use to log into the main HR file server where nobody ever bothers you.",
+                answers: ['1234', '1111', '2024', '0000', '9999']
+            },
+            {
+                id: 'dec9',
+                day: 5,
+                date: 'Dec 9',
+                title: 'Dream Location',
+                question: "Where would you *prefer* to conduct an employee exit interview?\n\nEnter either 'Conference Room' or 'Beach'",
+                answers: ['beach', 'the beach', 'conference room', 'conference']
+            },
+            {
+                id: 'dec10',
+                day: 6,
+                date: 'Dec 10',
+                title: 'Resource Management',
+                question: "The name of the person in the office who has, without fail, the best snacks at their desk.\n\n(First Name Only)",
+                answers: ['samantha', 'sam', 'sarah', 'jessica', 'emily']
+            },
+            {
+                id: 'dec11',
+                day: 7,
+                date: 'Dec 11',
+                title: 'Honest Feedback',
+                question: "The HR buzzword you secretly hate using the most during annual performance reviews.\n\n(e.g., 'Synergy,' 'Leverage,' 'Bandwidth')",
+                answers: ['synergy', 'leverage', 'bandwidth', 'alignment', 'optimize', 'streamline', 'paradigm']
+            },
+            {
+                id: 'dec12',
+                day: 8,
+                date: 'Dec 12',
+                title: 'Strategic Alignment',
+                question: "Complete the HR phrase:\n\n'We need to align the _____ with the company's strategic goals.'\n\n(The missing word)",
+                answers: ['talent', 'resources', 'team', 'workforce', 'people', 'employees', 'objectives']
+            },
+            {
+                id: 'dec15',
+                day: 9,
+                date: 'Dec 15',
+                title: 'Chief Happiness Officer',
+                question: "If you could hire a Chief Happiness Officer who was a non-human, which animal would it be?\n\n(e.g., Cat, Dog, Parrot)",
+                answers: ['dog', 'cat', 'puppy', 'golden retriever', 'labrador', 'kitten', 'parrot']
+            },
+            {
+                id: 'dec16',
+                day: 10,
+                date: 'Dec 16',
+                title: 'Employee Recognition',
+                question: "What form of Employee Recognition makes you smile the most?\n\n(e.g., Pizza Party, Public Shoutout, Bonus Check)",
+                answers: ['bonus check', 'bonus', 'cash bonus', 'money', 'salary increase', 'raise', 'gift card']
+            },
+            {
+                id: 'dec17',
+                day: 11,
+                date: 'Dec 17',
+                title: 'Onboarding Strategy',
+                question: "Your most successful onboarding strategy (one word that describes it).",
+                answers: ['mentorship', 'training', 'buddy system', 'welcoming', 'structured', 'comprehensive', 'support']
+            },
+            {
+                id: 'dec18',
+                day: 12,
+                date: 'Dec 18',
+                title: 'Secret Talent',
+                question: "Your 'Secret Talent' for calming down a difficult meeting.\n\n(Two words, e.g., 'Sharp Pencils')",
+                answers: ['quick jokes', 'humor', 'coffee break', 'deep breath', 'calm voice', 'listening skills']
+            },
+            {
+                id: 'dec19',
+                day: 13,
+                date: 'Dec 19',
+                title: 'FINAL - The Treasure Location',
+                question: "🎉 CONGRATULATIONS! 🎉\n\nYou have successfully completed your treasure hunt journey.\n\nYour final assignment is to look in the most organized place you know.\n\n(Enter the final location)",
+                answers: ['filing cabinet', 'file cabinet', 'desk drawer', 'drawer', 'office', 'storage']
+            }
+        ];
 
-        let currentTaskIndex = 0;
+        let currentTaskIndex = 0;
+        const ADMIN_PIN = '2989780'; // <-- DEFINES THE SECRET PIN
 
-        // Load progress
-        function loadProgress() {
-            const saved = localStorage.getItem('treasureHuntProgress');
-            if (saved) {
-                currentTaskIndex = parseInt(saved);
-            }
-        }
+        // Load progress
+        function loadProgress() {
+            const saved = localStorage.getItem('treasureHuntProgress');
+            if (saved) {
+                currentTaskIndex = parseInt(saved);
+            }
+        }
 
-        // Save progress
-        function saveProgress() {
-            localStorage.setItem('treasureHuntProgress', currentTaskIndex.toString());
-        }
+        // Save progress
+        function saveProgress() {
+            localStorage.setItem('treasureHuntProgress', currentTaskIndex.toString());
+        }
 
-        // Display message if exists
-        function displayMessage() {
-            const message = localStorage.getItem('secretSantaMessage');
-            const container = document.getElementById('messageContainer');
-            
-            if (message) {
-                container.innerHTML = `
-                    <div class="message-box">
-                        <p><strong>💌 Message from your Secret Santa:</strong></p>
-                        <p>${message}</p>
-                    </div>
-                `;
-            }
-        }
+        // Display message if exists
+        function displayMessage() {
+            const message = localStorage.getItem('secretSantaMessage');
+            const container = document.getElementById('messageContainer');
+            
+            if (message) {
+                container.innerHTML = `
+                    <div class="message-box">
+                        <p><strong>💌 Message from your Secret Santa:</strong></p>
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+        }
 
-        // Display current task
-        function displayTask() {
-            const task = tasks[currentTaskIndex];
-            document.getElementById('subtitle').textContent = `Day ${task.day}: ${task.title}`;
-            document.getElementById('question').textContent = task.question;
-            document.getElementById('answerInput').value = '';
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
-            
-            const progress = ((currentTaskIndex) / tasks.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = `Day ${task.day} of ${tasks.length}`;
+        // Display current task
+        function displayTask() {
+            const task = tasks[currentTaskIndex];
+            document.getElementById('subtitle').textContent = `Day ${task.day}: ${task.title}`;
+            document.getElementById('question').textContent = task.question;
+            document.getElementById('answerInput').value = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            
+            const progress = ((currentTaskIndex) / tasks.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Day ${task.day} of ${tasks.length}`;
 
-            if (currentTaskIndex === tasks.length - 1) {
-                document.getElementById('mainTitle').textContent = '🎉 FINAL CHALLENGE 🎉';
-                document.getElementById('submitBtn').textContent = 'REVEAL THE TREASURE';
-                document.getElementById('submitBtn').classList.add('final');
-            }
+            if (currentTaskIndex === tasks.length - 1) {
+                document.getElementById('mainTitle').textContent = '🎉 FINAL CHALLENGE 🎉';
+                document.getElementById('submitBtn').textContent = 'REVEAL THE TREASURE';
+                document.getElementById('submitBtn').classList.add('final');
+            }
 
-            displayMessage();
-        }
+            displayMessage();
+        }
 
-        // Check answer
-        function checkAnswer() {
-            const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
-            const task = tasks[currentTaskIndex];
-            const feedback = document.getElementById('feedback');
+        // Check answer
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answerInput').value.trim().toLowerCase();
+            const task = tasks[currentTaskIndex];
+            const feedback = document.getElementById('feedback');
 
-            if (!userAnswer) {
-                feedback.textContent = '⚠️ Please enter an answer!';
-                feedback.className = 'feedback error';
-                return;
-            }
+            if (!userAnswer) {
+                feedback.textContent = '⚠️ Please enter an answer!';
+                feedback.className = 'feedback error';
+                return;
+            }
 
-            // Save answer with timestamp
-            const answerData = {
-                answer: userAnswer,
-                timestamp: new Date().toLocaleString()
-            };
-            localStorage.setItem(`task_${task.id}`, JSON.stringify(answerData));
+            // Save answer with timestamp
+            const answerData = {
+                answer: userAnswer,
+                timestamp: new Date().toLocaleString()
+            };
+            localStorage.setItem(`task_${task.id}`, JSON.stringify(answerData));
 
-            const isCorrect = task.answers.some(answer => 
-                userAnswer.includes(answer) || answer.includes(userAnswer)
-            );
+            const isCorrect = task.answers.some(answer => 
+                userAnswer.includes(answer) || answer.includes(userAnswer)
+            );
 
-            if (isCorrect) {
-                if (currentTaskIndex === tasks.length - 1) {
-                    feedback.textContent = '🏆 TREASURE UNLOCKED! Go get your Performance Bonus! 🎁';
-                    feedback.className = 'feedback final-success';
-                    createConfetti();
-                    
-                    setTimeout(() => {
-                        alert('🎉 Congratulations, Mr. Kamendra!\n\nYou have successfully completed the Secret Santa Treasure Hunt!\n\nYour gift awaits at the specified location!\n\nHappy Holidays! 🎄');
-                    }, 2000);
-                } else {
-                    feedback.textContent = '✅ CORRECT! Proceeding to next day...';
-                    feedback.className = 'feedback success';
-                    
-                    setTimeout(() => {
-                        currentTaskIndex++;
-                        saveProgress();
-                        displayTask();
-                    }, 2000);
-                }
-            } else {
-                feedback.textContent = '❌ Not quite right! Think carefully and try again.';
-                feedback.className = 'feedback error';
-            }
-        }
+            if (isCorrect) {
+                if (currentTaskIndex === tasks.length - 1) {
+                    feedback.textContent = '🏆 TREASURE UNLOCKED! Go get your Performance Bonus! 🎁';
+                    feedback.className = 'feedback final-success';
+                    createConfetti();
+                    
+                    setTimeout(() => {
+                        alert('🎉 Congratulations, Mr. Kamendra!\n\nYou have successfully completed the Secret Santa Treasure Hunt!\n\nYour gift awaits at the specified location!\n\nHappy Holidays! 🎄');
+                    }, 2000);
+                } else {
+                    feedback.textContent = '✅ CORRECT! Proceeding to next day...';
+                    feedback.className = 'feedback success';
+                    
+                    setTimeout(() => {
+                        currentTaskIndex++;
+                        saveProgress();
+                        displayTask();
+                    }, 2000);
+                }
+            } else {
+                feedback.textContent = '❌ Not quite right! Think carefully and try again.';
+                feedback.className = 'feedback error';
+            }
+        }
 
-        // Create confetti
-        function createConfetti() {
-            const colors = ['#FFD700', '#FFA500', '#009B77', '#00d4aa', '#90EE90'];
-            const confettiCount = 50;
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#FFD700', '#FFA500', '#009B77', '#00d4aa', '#90EE90'];
+            const confettiCount = 50;
 
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = '10px';
-                confetti.style.height = '10px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-10px';
-                confetti.style.opacity = '1';
-                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
-                document.body.appendChild(confetti);
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.opacity = '1';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                document.body.appendChild(confetti);
 
-                const duration = Math.random() * 3 + 2;
-                const xMovement = (Math.random() - 0.5) * 200;
-                
-                confetti.animate([
-                    { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate(${xMovement}px, ${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-                ], {
-                    duration: duration * 1000,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                }).onfinish = () => confetti.remove();
-            }
-        }
+                const duration = Math.random() * 3 + 2;
+                const xMovement = (Math.random() - 0.5) * 200;
+                
+                confetti.animate([
+                    { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate(${xMovement}px, ${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                }).onfinish = () => confetti.remove();
+            }
+        }
 
-        // Toggle admin panel
-        function toggleAdmin() {
-            const userView = document.getElementById('userView');
-            const adminView = document.getElementById('adminView');
-            
-            if (adminView.classList.contains('active')) {
-                adminView.classList.remove('active');
-                userView.style.display = 'block';
-            } else {
-                adminView.classList.add('active');
-                userView.style.display = 'none';
-                displayAllAnswers();
-            }
-        }
+        // Toggle admin panel - MODIFIED TO INCLUDE PIN CHECK
+        function toggleAdmin() {
+            const userView = document.getElementById('userView');
+            const adminView = document.getElementById('adminView');
+            
+            if (adminView.classList.contains('active')) {
+                adminView.classList.remove('active');
+                userView.style.display = 'block';
+            } else {
+                // Prompt for the PIN
+                const enteredPin = prompt("🔑 Enter the Secret Santa Control Panel PIN:");
 
-        // Switch to user view
-        function switchToUser() {
-            document.getElementById('adminView').classList.remove('active');
-            document.getElementById('userView').style.display = 'block';
-        }
+                if (enteredPin === ADMIN_PIN) {
+                    // Correct PIN
+                    adminView.classList.add('active');
+                    userView.style.display = 'none';
+                    displayAllAnswers();
+                } else if (enteredPin !== null) {
+                    // Incorrect PIN (enteredPin is null if the user clicked cancel)
+                    alert("❌ Incorrect PIN. Access Denied.");
+                }
+            }
+        }
 
-        // Display all answers in admin panel
-        function displayAllAnswers() {
-            const container = document.getElementById('answersDisplay');
-            let html = '';
+        // Switch to user view
+        function switchToUser() {
+            document.getElementById('adminView').classList.remove('active');
+            document.getElementById('userView').style.display = 'block';
+        }
 
-            tasks.forEach(task => {
-                const savedData = localStorage.getItem(`task_${task.id}`);
-                
-                if (savedData) {
-                    try {
-                        const data = JSON.parse(savedData);
-                        html += `
-                            <div class="answer-item">
-                                <h3>Day ${task.day}: ${task.title}</h3>
-                                <p><strong>Question:</strong> ${task.question.split('\n')[0]}</p>
-                                <p><strong>Answer:</strong> ${data.answer}</p>
-                                <p class="timestamp">⏰ ${data.timestamp}</p>
-                            </div>
-                        `;
-                    } catch (e) {
-                        // Old format without timestamp
-                        html += `
-                            <div class="answer-item">
-                                <h3>Day ${task.day}: ${task.title}</h3>
-                                <p><strong>Answer:</strong> ${savedData}</p>
-                            </div>
-                        `;
-                    }
-                } else {
-                    html += `
-                        <div class="answer-item" style="opacity: 0.5;">
-                            <h3>Day ${task.day}: ${task.title}</h3>
-                            <p style="color: #708090;">Not answered yet</p>
-                        </div>
-                    `;
-                }
-            });
+        // Display all answers in admin panel
+        function displayAllAnswers() {
+            const container = document.getElementById('answersDisplay');
+            let html = '';
 
-            container.innerHTML = html;
-        }
+            tasks.forEach(task => {
+                const savedData = localStorage.getItem(`task_${task.id}`);
+                
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        html += `
+                            <div class="answer-item">
+                                <h3>Day ${task.day}: ${task.title}</h3>
+                                <p><strong>Question:</strong> ${task.question.split('\n')[0]}</p>
+                                <p><strong>Answer:</strong> ${data.answer}</p>
+                                <p class="timestamp">⏰ ${data.timestamp}</p>
+                            </div>
+                        `;
+                    } catch (e) {
+                        // Old format without timestamp
+                        html += `
+                            <div class="answer-item">
+                                <h3>Day ${task.day}: ${task.title}</h3>
+                                <p><strong>Answer:</strong> ${savedData}</p>
+                            </div>
+                        `;
+                    }
+                } else {
+                    html += `
+                        <div class="answer-item" style="opacity: 0.5;">
+                            <h3>Day ${task.day}: ${task.title}</h3>
+                            <p style="color: #708090;">Not answered yet</p>
+                        </div>
+                    `;
+                }
+            });
 
-        // Send message to Kamendra
-        function sendMessage() {
-            const message = document.getElementById('adminMessage').value.trim();
-            
-            if (!message) {
-                alert('Please type a message first!');
-                return;
-            }
+            container.innerHTML = html;
+        }
 
-            localStorage.setItem('secretSantaMessage', message);
-            alert('✅ Message sent! Kamendra will see it when he opens the page.');
-            document.getElementById('adminMessage').value = '';
-        }
+        // Send message to Kamendra
+        function sendMessage() {
+            const message = document.getElementById('adminMessage').value.trim();
+            
+            if (!message) {
+                alert('Please type a message first!');
+                return;
+            }
 
-        // Export all answers
-        function exportAnswers() {
-            let report = '🎄 SECRET SANTA TREASURE HUNT - ANSWERS REPORT 🎄\n';
-            report += '=' .repeat(60) + '\n\n';
-            report += `Participant: Mr. Kamendra\n`;
-            report += `Generated: ${new Date().toLocaleString()}\n\n`;
-            report += '=' .repeat(60) + '\n\n';
+            localStorage.setItem('secretSantaMessage', message);
+            alert('✅ Message sent! Kamendra will see it when he opens the page.');
+            document.getElementById('adminMessage').value = '';
+        }
 
-            tasks.forEach(task => {
-                const savedData = localStorage.getItem(`task_${task.id}`);
-                report += `Day ${task.day}: ${task.title}\n`;
-                report += `Date: ${task.date}\n`;
-                report += `Question: ${task.question.split('\n')[0]}\n`;
-                
-                if (savedData) {
-                    try {
-                        const data = JSON.parse(savedData);
-                        report += `Answer: ${data.answer}\n`;
-                        report += `Timestamp: ${data.timestamp}\n`;
-                    } catch (e) {
-                        report += `Answer: ${savedData}\n`;
-                    }
-                } else {
-                    report += `Answer: (Not answered yet)\n`;
-                }
-                
-                report += '\n' + '-'.repeat(60) + '\n\n';
-            });
+        // Export all answers
+        function exportAnswers() {
+            let report = '🎄 SECRET SANTA TREASURE HUNT - ANSWERS REPORT 🎄\n';
+            report += '=' .repeat(60) + '\n\n';
+            report += `Participant: Mr. Kamendra\n`;
+            report += `Generated: ${new Date().toLocaleString()}\n\n`;
+            report += '=' .repeat(60) + '\n\n';
 
-            // Create download
-            const blob = new Blob([report], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Kamendra_Answers_${new Date().toISOString().split('T')[0]}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }
+            tasks.forEach(task => {
+                const savedData = localStorage.getItem(`task_${task.id}`);
+                report += `Day ${task.day}: ${task.title}\n`;
+                report += `Date: ${task.date}\n`;
+                report += `Question: ${task.question.split('\n')[0]}\n`;
+                
+                if (savedData) {
+                    try {
+                        const data = JSON.parse(savedData);
+                        report += `Answer: ${data.answer}\n`;
+                        report += `Timestamp: ${data.timestamp}\n`;
+                    } catch (e) {
+                        report += `Answer: ${savedData}\n`;
+                    }
+                } else {
+                    report += `Answer: (Not answered yet)\n`;
+                }
+                
+                report += '\n' + '-'.repeat(60) + '\n\n';
+            });
 
-        // Event listeners
-        document.getElementById('submitBtn').addEventListener('click', checkAnswer);
-        document.getElementById('answerInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAnswer();
-        });
+            // Create download
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Kamendra_Answers_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
 
-        // Initialize
-        loadProgress();
-        displayTask();
-    </script>
+        // Event listeners
+        document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+        document.getElementById('answerInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+
+        // Initialize
+        loadProgress();
+        displayTask();
+    </script>
 </body>
 </html>
