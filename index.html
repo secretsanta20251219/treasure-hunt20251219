@@ -94,6 +94,25 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .puzzle-box {
+            background: #1F2D4A;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .puzzle-label {
+            font-size: 1.2em;
+            color: #FFD700;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -347,16 +366,26 @@
             </div>
             <div class="progress-text" id="progressText">Day 1 of 13</div>
 
-            <div class="question-box">
+            <div class="puzzle-box" id="puzzleBox">
+                <div class="puzzle-label">🧩 UNLOCK THE PUZZLE 🧩</div>
+                <div class="question" id="puzzleQuestion"></div>
+                <div class="input-group">
+                    <input type="text" id="puzzleInput" placeholder="Solve the puzzle...">
+                </div>
+                <button class="btn-submit" id="puzzleBtn">SOLVE PUZZLE</button>
+                <div class="feedback" id="puzzleFeedback"></div>
+            </div>
+
+            <div class="question-box" id="questionBox" style="display: none;">
                 <div class="assignment-label">✨ ASSIGNMENT ✨</div>
                 <div class="question" id="question"></div>
             </div>
 
-            <div class="input-group">
+            <div class="input-group" id="answerGroup" style="display: none;">
                 <input type="text" id="answerInput" placeholder="Enter your answer here...">
             </div>
 
-            <button class="btn-submit" id="submitBtn">SUBMIT ANSWER</button>
+            <button class="btn-submit" id="submitBtn" style="display: none;">SUBMIT ANSWER</button>
 
             <div class="feedback" id="feedback"></div>
 
@@ -398,6 +427,11 @@
                 day: 1,
                 date: 'Dec 3',
                 title: 'The Morning Fuel',
+                puzzle: {
+                    type: 'riddle',
+                    question: "I'm hot, I'm dark, I wake you up. Without me, mornings are tough. What am I?",
+                    answer: 'coffee'
+                },
                 question: "The single most important key performance indicator (KPI) that keeps you coming to the office every morning.\n\n(Hint: It's brewed.)",
                 answers: ['coffee', 'tea', 'caffeine', 'espresso', 'latte', 'cappuccino']
             },
@@ -406,6 +440,11 @@
                 day: 2,
                 date: 'Dec 4',
                 title: 'HR Compliance Check',
+                puzzle: {
+                    type: 'pattern',
+                    question: "Complete the sequence: 3, 6, 9, 12, __",
+                    answer: '15'
+                },
                 question: "The exact numerical page number in the Employee Handbook that addresses the official office policy on Secret Santa gift limits.",
                 answers: ['15', 'fifteen', 'page 15']
             },
@@ -414,6 +453,11 @@
                 day: 3,
                 date: 'Dec 5',
                 title: 'Talent Acquisition',
+                puzzle: {
+                    type: 'cipher',
+                    question: "Decode this: SFGFSSBMT (hint: shift back by 1)",
+                    answer: 'referrals'
+                },
                 question: "The name of the one recruitment channel (platform) that consistently delivers the most interesting, unique applicants to our company.\n\n(e.g., LinkedIn, Referrals, Indeed)",
                 answers: ['referrals', 'referral', 'employee referrals', 'internal referrals']
             },
@@ -422,6 +466,11 @@
                 day: 4,
                 date: 'Dec 8',
                 title: 'Security Clearance',
+                puzzle: {
+                    type: 'math',
+                    question: "If you multiply the number of seasons in a year by the number of days in a week, then divide by 2, what do you get?",
+                    answer: '14'
+                },
                 question: "The four-digit number that you use to log into the main HR file server where nobody ever bothers you.",
                 answers: ['1234', '1111', '2024', '0000', '9999']
             },
@@ -430,6 +479,11 @@
                 day: 5,
                 date: 'Dec 9',
                 title: 'Dream Location',
+                puzzle: {
+                    type: 'word',
+                    question: "Unscramble: HBACE",
+                    answer: 'beach'
+                },
                 question: "Where would you *prefer* to conduct an employee exit interview?\n\nEnter either 'Conference Room' or 'Beach'",
                 answers: ['beach', 'the beach', 'conference room', 'conference']
             },
@@ -438,6 +492,11 @@
                 day: 6,
                 date: 'Dec 10',
                 title: 'Resource Management',
+                puzzle: {
+                    type: 'logic',
+                    question: "I have cities but no houses, forests but no trees, and water but no fish. What am I?",
+                    answer: 'map'
+                },
                 question: "The name of the person in the office who has, without fail, the best snacks at their desk.\n\n(First Name Only)",
                 answers: ['samantha', 'sam', 'sarah', 'jessica', 'emily']
             },
@@ -446,6 +505,11 @@
                 day: 7,
                 date: 'Dec 11',
                 title: 'Honest Feedback',
+                puzzle: {
+                    type: 'pattern',
+                    question: "What comes next? 🔴 🔵 🔴 🔵 🔴 __",
+                    answer: ['🔵', 'blue', 'blue circle']
+                },
                 question: "The HR buzzword you secretly hate using the most during annual performance reviews.\n\n(e.g., 'Synergy,' 'Leverage,' 'Bandwidth')",
                 answers: ['synergy', 'leverage', 'bandwidth', 'alignment', 'optimize', 'streamline', 'paradigm']
             },
@@ -454,6 +518,11 @@
                 day: 8,
                 date: 'Dec 12',
                 title: 'Strategic Alignment',
+                puzzle: {
+                    type: 'word',
+                    question: "Rearrange the letters: NETLAT",
+                    answer: 'talent'
+                },
                 question: "Complete the HR phrase:\n\n'We need to align the _____ with the company's strategic goals.'\n\n(The missing word)",
                 answers: ['talent', 'resources', 'team', 'workforce', 'people', 'employees', 'objectives']
             },
@@ -462,6 +531,11 @@
                 day: 9,
                 date: 'Dec 15',
                 title: 'Chief Happiness Officer',
+                puzzle: {
+                    type: 'riddle',
+                    question: "I have four legs but never walk, I'm loyal and loving, and I bark. What am I?",
+                    answer: 'dog'
+                },
                 question: "If you could hire a Chief Happiness Officer who was a non-human, which animal would it be?\n\n(e.g., Cat, Dog, Parrot)",
                 answers: ['dog', 'cat', 'puppy', 'golden retriever', 'labrador', 'kitten', 'parrot']
             },
@@ -470,6 +544,11 @@
                 day: 10,
                 date: 'Dec 16',
                 title: 'Employee Recognition',
+                puzzle: {
+                    type: 'math',
+                    question: "If each employee gets $100 bonus, and there are 5 employees, how much total? (write the number)",
+                    answer: '500'
+                },
                 question: "What form of Employee Recognition makes you smile the most?\n\n(e.g., Pizza Party, Public Shoutout, Bonus Check)",
                 answers: ['bonus check', 'bonus', 'cash bonus', 'money', 'salary increase', 'raise', 'gift card']
             },
@@ -478,6 +557,11 @@
                 day: 11,
                 date: 'Dec 17',
                 title: 'Onboarding Strategy',
+                puzzle: {
+                    type: 'logic',
+                    question: "What has many keys but can't open a single door?",
+                    answer: ['piano', 'keyboard', 'computer']
+                },
                 question: "Your most successful onboarding strategy (one word that describes it).",
                 answers: ['mentorship', 'training', 'buddy system', 'welcoming', 'structured', 'comprehensive', 'support']
             },
@@ -486,6 +570,11 @@
                 day: 12,
                 date: 'Dec 18',
                 title: 'Secret Talent',
+                puzzle: {
+                    type: 'cipher',
+                    question: "Decode: IVNPS (shift back by 1)",
+                    answer: 'humor'
+                },
                 question: "Your 'Secret Talent' for calming down a difficult meeting.\n\n(Two words, e.g., 'Sharp Pencils')",
                 answers: ['quick jokes', 'humor', 'coffee break', 'deep breath', 'calm voice', 'listening skills']
             },
@@ -494,12 +583,18 @@
                 day: 13,
                 date: 'Dec 19',
                 title: 'FINAL - The Treasure Location',
+                puzzle: {
+                    type: 'riddle',
+                    question: "🎉 FINAL PUZZLE 🎉\n\nI hold secrets in neat rows, documents from years ago. Pull me open, look inside, where important papers hide. What am I?",
+                    answer: ['filing cabinet', 'file cabinet', 'cabinet', 'drawer']
+                },
                 question: "🎉 CONGRATULATIONS! 🎉\n\nYou have successfully completed your treasure hunt journey.\n\nYour final assignment is to look in the most organized place you know.\n\n(Enter the final location)",
                 answers: ['filing cabinet', 'file cabinet', 'desk drawer', 'drawer', 'office', 'storage']
             }
         ];
 
         let currentTaskIndex = 0;
+        let puzzleSolved = false;
 
         // Load progress
         function loadProgress() {
@@ -507,6 +602,11 @@
             if (saved) {
                 currentTaskIndex = parseInt(saved);
             }
+            
+            // Check if current puzzle is already solved
+            const task = tasks[currentTaskIndex];
+            const puzzleStatus = localStorage.getItem(`puzzle_${task.id}`);
+            puzzleSolved = puzzleStatus === 'solved';
         }
 
         // Save progress
@@ -534,9 +634,27 @@
             const task = tasks[currentTaskIndex];
             document.getElementById('subtitle').textContent = `Day ${task.day}: ${task.title}`;
             document.getElementById('question').textContent = task.question;
+            document.getElementById('puzzleQuestion').textContent = task.puzzle.question;
+            
             document.getElementById('answerInput').value = '';
+            document.getElementById('puzzleInput').value = '';
             document.getElementById('feedback').textContent = '';
             document.getElementById('feedback').className = 'feedback';
+            document.getElementById('puzzleFeedback').textContent = '';
+            document.getElementById('puzzleFeedback').className = 'feedback';
+            
+            // Show/hide puzzle or question based on puzzle status
+            if (puzzleSolved) {
+                document.getElementById('puzzleBox').style.display = 'none';
+                document.getElementById('questionBox').style.display = 'block';
+                document.getElementById('answerGroup').style.display = 'block';
+                document.getElementById('submitBtn').style.display = 'block';
+            } else {
+                document.getElementById('puzzleBox').style.display = 'block';
+                document.getElementById('questionBox').style.display = 'none';
+                document.getElementById('answerGroup').style.display = 'none';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
             
             const progress = ((currentTaskIndex) / tasks.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
@@ -553,6 +671,44 @@
             }
 
             displayMessage();
+        }
+
+        // Check puzzle answer
+        function checkPuzzle() {
+            const userAnswer = document.getElementById('puzzleInput').value.trim().toLowerCase();
+            const task = tasks[currentTaskIndex];
+            const feedback = document.getElementById('puzzleFeedback');
+
+            if (!userAnswer) {
+                feedback.textContent = '⚠️ Please enter an answer!';
+                feedback.className = 'feedback error';
+                return;
+            }
+
+            // Check if puzzle answer is correct
+            const puzzleAnswers = Array.isArray(task.puzzle.answer) ? task.puzzle.answer : [task.puzzle.answer];
+            const isCorrect = puzzleAnswers.some(answer => 
+                userAnswer.includes(answer.toLowerCase()) || answer.toLowerCase().includes(userAnswer)
+            );
+
+            if (isCorrect) {
+                feedback.textContent = '🎉 PUZZLE SOLVED! Revealing assignment...';
+                feedback.className = 'feedback success';
+                
+                // Mark puzzle as solved
+                localStorage.setItem(`puzzle_${task.id}`, 'solved');
+                puzzleSolved = true;
+                
+                setTimeout(() => {
+                    document.getElementById('puzzleBox').style.display = 'none';
+                    document.getElementById('questionBox').style.display = 'block';
+                    document.getElementById('answerGroup').style.display = 'block';
+                    document.getElementById('submitBtn').style.display = 'block';
+                }, 1500);
+            } else {
+                feedback.textContent = '❌ Not quite! Think harder...';
+                feedback.className = 'feedback error';
+            }
         }
 
         // Check answer
@@ -596,6 +752,7 @@
                     setTimeout(() => {
                         currentTaskIndex++;
                         saveProgress();
+                        puzzleSolved = false; // Reset for next task
                         displayTask();
                     }, 2000);
                 }
@@ -627,151 +784,4 @@
                 
                 confetti.animate([
                     { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate(${xMovement}px, ${window.innerHeight}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
-                ], {
-                    duration: duration * 1000,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                }).onfinish = () => confetti.remove();
-            }
-        }
-
-        // Toggle admin panel (with password protection)
-        function toggleAdmin() {
-            const userView = document.getElementById('userView');
-            const adminView = document.getElementById('adminView');
-            
-            if (adminView.classList.contains('active')) {
-                // If currently active, switch back to user view
-                adminView.classList.remove('active');
-                userView.style.display = 'block';
-            } else {
-                // Prompt for password
-                const password = prompt("Enter Secret Santa Password to access the Control Panel:");
-                
-                if (password === ADMIN_PASSWORD) {
-                    // Correct password
-                    adminView.classList.add('active');
-                    userView.style.display = 'none';
-                    displayAllAnswers();
-                } else if (password !== null) {
-                    // Incorrect password (and not cancelled)
-                    alert('Access Denied: Incorrect Password.');
-                }
-            }
-        }
-
-        // Switch to user view
-        function switchToUser() {
-            document.getElementById('adminView').classList.remove('active');
-            document.getElementById('userView').style.display = 'block';
-        }
-
-        // Display all answers in admin panel
-        function displayAllAnswers() {
-            const container = document.getElementById('answersDisplay');
-            let html = '';
-
-            tasks.forEach(task => {
-                const savedData = localStorage.getItem(`task_${task.id}`);
-                
-                if (savedData) {
-                    try {
-                        const data = JSON.parse(savedData);
-                        html += `
-                            <div class="answer-item">
-                                <h3>Day ${task.day}: ${task.title}</h3>
-                                <p><strong>Question:</strong> ${task.question.split('\n')[0]}</p>
-                                <p><strong>Answer:</strong> ${data.answer}</p>
-                                <p class="timestamp">⏰ ${data.timestamp}</p>
-                            </div>
-                        `;
-                    } catch (e) {
-                        // Old format without timestamp
-                        html += `
-                            <div class="answer-item">
-                                <h3>Day ${task.day}: ${task.title}</h3>
-                                <p><strong>Answer:</strong> ${savedData}</p>
-                            </div>
-                        `;
-                    }
-                } else {
-                    html += `
-                        <div class="answer-item" style="opacity: 0.5;">
-                            <h3>Day ${task.day}: ${task.title}</h3>
-                            <p style="color: #708090;">Not answered yet</p>
-                        </div>
-                    `;
-                }
-            });
-
-            container.innerHTML = html;
-        }
-
-        // Send message to Kamendra
-        function sendMessage() {
-            const message = document.getElementById('adminMessage').value.trim();
-            
-            if (!message) {
-                alert('Please type a message first!');
-                return;
-            }
-
-            localStorage.setItem('secretSantaMessage', message);
-            alert('✅ Message sent! Kamendra will see it when he opens the page.');
-            document.getElementById('adminMessage').value = '';
-            displayMessage(); // Refresh user view message immediately if still on admin view
-        }
-
-        // Export all answers
-        function exportAnswers() {
-            let report = '🎄 SECRET SANTA TREASURE HUNT - ANSWERS REPORT 🎄\n';
-            report += '=' .repeat(60) + '\n\n';
-            report += `Participant: Mr. Kamendra\n`;
-            report += `Generated: ${new Date().toLocaleString()}\n\n`;
-            report += '=' .repeat(60) + '\n\n';
-
-            tasks.forEach(task => {
-                const savedData = localStorage.getItem(`task_${task.id}`);
-                report += `Day ${task.day}: ${task.title}\n`;
-                report += `Date: ${task.date}\n`;
-                report += `Question: ${task.question.split('\n')[0]}\n`;
-                
-                if (savedData) {
-                    try {
-                        const data = JSON.parse(savedData);
-                        report += `Answer: ${data.answer}\n`;
-                        report += `Timestamp: ${data.timestamp}\n`;
-                    } catch (e) {
-                        report += `Answer: ${savedData}\n`;
-                    }
-                } else {
-                    report += `Answer: (Not answered yet)\n`;
-                }
-                
-                report += '\n' + '-'.repeat(60) + '\n\n';
-            });
-
-            // Create download
-            const blob = new Blob([report], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Kamendra_Answers_${new Date().toISOString().split('T')[0]}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }
-
-        // Event listeners
-        document.getElementById('submitBtn').addEventListener('click', checkAnswer);
-        document.getElementById('answerInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAnswer();
-        });
-
-        // Initialize
-        loadProgress();
-        displayTask();
-    </script>
-</body>
-</html>
+                    { transform: `translate(${xMovement}px, ${window.innerHeight}px) rotate(${Math.random() * 720}
